@@ -2,11 +2,13 @@ import { AuthProvider, fetchUtils } from 'ra-core';
 
 export interface Options {
   obtainAuthTokenUrl?: string;
+  tokenKey?: string;
 }
 
 function tokenAuthProvider(options: Options = {}): AuthProvider {
   const opts = {
     obtainAuthTokenUrl: '/api-token-auth/',
+    tokenKey: 'token',
     ...options,
   };
   return {
@@ -18,7 +20,7 @@ function tokenAuthProvider(options: Options = {}): AuthProvider {
       });
       const response = await fetch(request);
       if (response.ok) {
-        localStorage.setItem('token', (await response.json()).token);
+        localStorage.setItem('token', (await response.json())[opts.tokenKey]);
         return;
       }
       if (response.headers.get('content-type') !== 'application/json') {
