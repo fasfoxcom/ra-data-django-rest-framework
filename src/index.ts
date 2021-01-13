@@ -55,6 +55,9 @@ export default (
 
       const { json } = await httpClient(url);
 
+      // Map pk to id
+      json.results.map((item: any) => (item.id = item.pk));
+
       return {
         data: json.results,
         total: json.count,

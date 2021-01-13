@@ -177,6 +177,10 @@ var index = (function (apiUrl, httpClient) {
         var url = apiUrl + "/" + resource + "/?" + stringify(query);
         return Promise.resolve(httpClient(url)).then(function (_ref) {
           var json = _ref.json;
+          // Map pk to id
+          json.results.map(function (item) {
+            return item.id = item.pk;
+          });
           return {
             data: json.results,
             total: json.count
