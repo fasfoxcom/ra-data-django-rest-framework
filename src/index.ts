@@ -66,6 +66,7 @@ export default (
 
     getOne: async (resource, params) => {
       const data = await getOneJson(resource, params.id);
+      data.id = data.pk;
       return {
         data,
       };

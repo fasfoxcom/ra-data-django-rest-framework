@@ -197,6 +197,7 @@ var index = (function (apiUrl, httpClient) {
     getOne: function (resource, params) {
       try {
         return Promise.resolve(getOneJson(resource, params.id)).then(function (data) {
+          data.id = data.pk;
           return {
             data: data
           };
